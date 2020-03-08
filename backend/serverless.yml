@@ -55,7 +55,11 @@ functions:
       - http:
           method: get
           path: todos
-          cors: true
+          cors:
+            - enabled: true
+            - origin: '*'
+            - headers: 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+            - methods: 'PUT,POST,UPDATE'
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new image
@@ -79,7 +83,11 @@ functions:
       - http:
           method: post
           path: todos
-          cors: true
+          cors:
+            - enabled: true
+            - origin: '*'
+            - headers: 'Content-Type,X-PINGOTHER'
+            - methods: 'PUT,POST,UPDATE'
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new image
@@ -104,7 +112,11 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
-          cors: true
+          cors:
+            - enabled: true
+            - origin: '*'
+            - headers: 'Content-Type,X-PINGOTHER'
+            - methods: 'PUT,POST,UPDATE'
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new image
@@ -129,7 +141,11 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
-          cors: true
+          cors:
+            - enabled: true
+            - origin: '*'
+            - headers: 'Content-Type,X-PINGOTHER'
+            - methods: 'PUT,POST,UPDATE,DELETE'
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new image
@@ -154,7 +170,11 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
-          cors: true
+          cors:
+            - enabled: true
+            - origin: '*'
+            - headers: 'Content-Type,X-PINGOTHER'
+            - methods: 'PUT,POST,UPDATE,DELETE'
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new image
@@ -174,6 +194,16 @@ functions:
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}
 resources:
   Resources:
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
     GroupsDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -219,4 +249,3 @@ resources:
           Ref: ApiGatewayRestApi
         ValidateRequestBody: true
         ValidateRequestParameters: false
-

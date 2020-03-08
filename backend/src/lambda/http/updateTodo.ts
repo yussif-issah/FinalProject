@@ -23,10 +23,12 @@ ReturnValues:"UPDATED_NEW"
   })*/
   const update=await updateTodo(updatedTodo,todoId)
   return {
-    statusCode: 201,
+    statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true 
+      'Access-Control-Allow-Credentials': true
+      //'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT,UPDATE',
+      //'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
     },
     body: JSON.stringify({
       update

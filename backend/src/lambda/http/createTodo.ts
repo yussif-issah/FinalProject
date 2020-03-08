@@ -28,14 +28,15 @@ const todoTable = process.env.GROUPS_TABLE*/
   const newTodo: CreateTodoRequest = JSON.parse(event.body)
   const newItem= await createTodo(newTodo,event)
   return {
-    statusCode: 201,
+    statusCode: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true ,
-      "Content-Type": "application/json"
+     'Access-Control-Allow-Origin': '*',
+     'Access-Control-Allow-Credentials': true
+     //'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT',
+     //'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
     },
     body: JSON.stringify({
-      newItem
+     newItem
     })
   }
 }

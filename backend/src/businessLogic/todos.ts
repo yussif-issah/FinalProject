@@ -13,7 +13,7 @@ export async function getAllTodos(event:APIGatewayProxyEvent): Promise<TodoItem[
     const userId=await getUserId(event)
    return await todosAccess.getAllTodos(userId)
 }
-export async function generateURL(todoId:string,event:any):Promise<any>{
+export async function generateURL(todoId:string,event:APIGatewayProxyEvent):Promise<any>{
     return await todosAccess.generateUrl(todoId,event)
 }
 export async function updateTodo(
